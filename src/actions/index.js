@@ -28,10 +28,14 @@ export const fetchStock = (symbol) => {
 
 			let data = [];
 			response.data.dataset.data.forEach((tick) => {
-				console.log('TICK:',tick[0]);
-				
-				let restructuredTick = tick[0, 4];
-				data.push(restructuredTick);
+				let restructuredTick = [];
+				restructuredTick[0] = moment(tick[0]).unix();
+				//restructuredTick[0] = tick[0];
+				if(data.length == 0) {
+					console.log('!!!!!!!:', restructuredTick[0]);
+				}
+				restructuredTick[1] = tick[4];
+				data.unshift(restructuredTick);
 			});
 
 			dispatch({
